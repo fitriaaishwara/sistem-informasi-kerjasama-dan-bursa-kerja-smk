@@ -14,9 +14,11 @@ class ViewDataLowongan extends Migration
     public function up()
     {
         DB::statement('CREATE view datalowongan as
-              SELECT info_lowongans.id,instansis.nama,info_lowongans.judul,info_lowongans.isi,info_lowongans.foto, info_lowongans.status, info_lowongans.expired, info_lowongans.updated_at, info_lowongans.created_at
-          	  FROM info_lowongans
-              INNER JOIN instansis on instansis.id = info_lowongans.instansi_id');
+            SELECT info_lowongans.id,info_lowongans.instansi_id,instansis.nama,info_lowongans.judul,
+            info_lowongans.isi,info_lowongans.foto, info_lowongans.status, info_lowongans.expired,
+            info_lowongans.updated_at, info_lowongans.created_at
+            FROM info_lowongans
+            INNER JOIN instansis on instansis.id = info_lowongans.instansi_id');
 
     }
 

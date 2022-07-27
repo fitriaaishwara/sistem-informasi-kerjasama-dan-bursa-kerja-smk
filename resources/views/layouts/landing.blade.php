@@ -85,13 +85,6 @@
                   <a href="/" class="nav-link text-left">Beranda</a>
                 </li>
                 <li>
-                  @guest
-                  <a href="{{url('login')}}" class="nav-link text-left">Login</a>
-                  @else
-                  <a href="{{route('home')}}" class="nav-link text-left">Dashboard</a>
-                   @endguest
-                </li>
-                <li>
                   <a href="{{url('/form-full-lowongan')}}" class="nav-link text-left">Informasi Lowongan Kerja</a>
                 </li>
                 <li>

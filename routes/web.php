@@ -12,7 +12,7 @@
 */
 Auth::routes(['verify' => true]);
 Route::get('/auth',function(){
- return view('welcome');
+return view('welcome');
 })->middleware('auth');
 Route::get('/home','HomeController@index')->name('home');
 
@@ -125,14 +125,13 @@ Route::delete('infolowongan/delete/{id}','InfoLowonganController@destroy');
 
 
 // data lamaran (alumni)
-Route::get('/datalamaran','DataLamaranController@index');
-Route::get('/infolamaran;{id}','DataLamaranController@infolamaran');
-Route::get('/detaillowongan;{id}', 'DaftarInfoLowonganController@create');
+
 
 // daftarinfoLowongan
 Route::get('daftarinfolowongan','DaftarInfoLowonganController@index');
 Route::get('/detaillowongan;{id}','DaftarInfoLowonganController@detaillowongan');
-Route::post('/simpan-lamaran/store;{id}','DaftarInfoLowonganController@store');
+Route::get('/inputlamaran/{id}','DaftarInfoLowonganController@create');
+Route::post('/inputlamaran/store/{id}','DaftarInfoLowonganController@store');
 
 
 // daftarInstansi
@@ -166,3 +165,15 @@ Route::delete('portofolio/delete/{id}','PortofolioController@destroy');
 // Web Config
 route::get('/piconfig','PicConfigController@index')->name('piconfig');
 
+
+Route::get('/lamaransaya','DaftarInfoLowonganController@lamaransaya');
+Route::get('/json/lamaransaya','DaftarInfoLowonganController@json');
+
+Route::get('/datalamaran','DataLamaranController@index');
+Route::get('/json/datalamaran','DataLamaranController@json');
+Route::get('/datalamaran/detail/{id}','DataLamaranController@detail');
+Route::post('/datalamaran/active/{id}','DaftarInfoLowonganController@active');
+Route::post('/datalamaran/deactive/{id}','DaftarInfoLowonganController@deactive');
+Route::delete('datalamaran/delete/{id}','DaftarInfoLowonganController@destroy');
+
+Route::get('/dok/download/{id}','DaftarInfoLowonganController@download')->name('download');

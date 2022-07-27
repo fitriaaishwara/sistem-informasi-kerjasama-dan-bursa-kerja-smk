@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2022 at 01:54 PM
+-- Generation Time: Jul 27, 2022 at 03:45 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -30,12 +30,42 @@ SET time_zone = "+00:00";
 CREATE TABLE `berkas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `siswa_id` bigint(20) NOT NULL,
   `lowongan_id` bigint(20) NOT NULL,
-  `cv` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dokumen` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('Diterima','Tidak Diterima','Menunggu') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `berkas`
+--
+
+INSERT INTO `berkas` (`id`, `user_id`, `lowongan_id`, `judul`, `dokumen`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 3, 'cv', 'cv_Fitria Aishwara Damaiyanti\'s CV.pdf', 'Tidak Diterima', '2022-07-16 19:39:37', '2022-07-26 12:06:31'),
+(6, 2, 10, 'cv', 'cv_actionableagilemetrics-sample.pdf', 'Menunggu', '2022-07-27 00:15:43', '2022-07-27 00:15:43'),
+(7, 3, 12, 'cv', 'cv_Fitria Aishwara Damaiyanti\'s CV.pdf', 'Menunggu', '2022-07-27 11:42:49', '2022-07-27 11:42:49');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `datalamaran`
+-- (See below for the actual view)
+--
+CREATE TABLE `datalamaran` (
+`id` bigint(20) unsigned
+,`user_id` bigint(20)
+,`name` varchar(100)
+,`email` varchar(100)
+,`telp` varchar(20)
+,`lowongan_id` bigint(20)
+,`judul` varchar(255)
+,`nama` longtext
+,`dokumen` longtext
+,`status` enum('Diterima','Tidak Diterima','Menunggu')
+,`created_at` timestamp
+);
 
 -- --------------------------------------------------------
 
@@ -45,6 +75,7 @@ CREATE TABLE `berkas` (
 --
 CREATE TABLE `datalowongan` (
 `id` bigint(20) unsigned
+,`instansi_id` bigint(20)
 ,`nama` longtext
 ,`judul` varchar(255)
 ,`isi` longtext
@@ -128,21 +159,6 @@ CREATE TABLE `detailpesan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `info_lowongans`
 --
 
@@ -163,7 +179,11 @@ CREATE TABLE `info_lowongans` (
 --
 
 INSERT INTO `info_lowongans` (`id`, `instansi_id`, `judul`, `isi`, `foto`, `status`, `expired`, `created_at`, `updated_at`) VALUES
-(1, 1, 'lowongan', 'lowongan di telkom', 'lowongan_54ee765b2b0e8_-_sev-chloe-grace-moretz-beauty-makeover-headband-s2.jpg', 'Aktif', '2022-07-06', '2022-07-05 11:25:32', '2022-07-05 11:25:32');
+(5, 2, 'Web Developer', 'aaaaaaaaaaaaaaa', 'Web Developer_logokramat.jpg', 'Aktif', '2022-08-01', '2022-07-26 21:49:08', '2022-07-26 21:49:08'),
+(8, 1, 'Data Analyst', 'bbbbbbbbbbbbbbb', 'Data Analyst_1261299_20130218045648.jpg', 'Aktif', '2022-07-30', '2022-07-26 21:52:29', '2022-07-26 21:52:29'),
+(10, 10, 'UI/UX Designer', 'halo', 'Manager_tenor (2).jpg', 'Aktif', '2022-08-01', '2022-07-26 21:54:10', '2022-07-26 21:56:17'),
+(11, 13, 'Admin', 'ini lowongan', 'Admin_unnamed.jpg', 'Aktif', '2022-08-10', '2022-07-26 21:54:41', '2022-07-26 21:54:41'),
+(12, 31, '3D Design', '3d', '3D Design_bbc4f46ba0e92e932d2f292f87e76ded.jpg', 'Aktif', '2022-08-24', '2022-07-26 21:55:24', '2022-07-26 21:55:24');
 
 -- --------------------------------------------------------
 
@@ -334,19 +354,6 @@ INSERT INTO `jurusans` (`id`, `short`, `jurusan`, `created_at`, `updated_at`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kota`
---
-
-CREATE TABLE `kota` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `kota` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `migrations`
 --
 
@@ -384,7 +391,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (134, '2020_04_11_013435_create_pic_configs_table', 1),
 (135, '2022_07_05_173534_view_data_lowongan', 2),
 (136, '2022_07_05_174911_create_berkas_table', 2),
-(137, '2022_07_05_175850_view_data_lowongan', 3);
+(137, '2022_07_05_175850_view_data_lowongan', 3),
+(138, '2022_07_17_022124_view_data_lowongan', 4),
+(139, '2022_07_17_022327_view_data_lamaran', 5),
+(140, '2022_07_17_024837_view_data_lamaran', 6);
 
 -- --------------------------------------------------------
 
@@ -465,25 +475,11 @@ CREATE TABLE `presets` (
 --
 
 INSERT INTO `presets` (`id`, `name`, `iconActive`, `bodyBackround`, `headerKiri`, `buttonClass`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Blue Ocean', '#5867dd', '#e6e9ed', '#1958d6', ' btn-primary', 'disable', NULL, NULL),
-(2, 'Fire Red', '#c91a1a', '#f4c3c3', '#dd1f1f', 'btn-danger', 'disable', NULL, NULL),
-(3, 'Precious Leaf', '#27d838', '#b7f7bb', '#25c447', 'btn-success', 'disable', NULL, NULL),
-(4, 'Sun Light', '#ffaa00', '#f3fcae', '#ffe900', 'btn-warning', 'disable', NULL, NULL),
-(5, 'Wikrama', '#ffaa00', '#e6e9ed', '#cec631', 'btn-outline-primary', 'active', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(1, 'BrownSugar', '#1e1a14', '#e6e9ed', '#1e1a14', ' btn-primary', 'disable', NULL, '2022-07-26 21:38:42'),
+(2, 'LightGrey', '#6b8584', '#e6e9ed', '#6b8584', 'btn-outline-primary', 'disable', NULL, '2022-07-26 21:41:09'),
+(3, 'Burgundy', '#94726b', '#e6e9ed', '#94726b', 'btn-outline-danger', 'disable', NULL, '2022-07-26 21:41:01'),
+(4, 'Sunshine', '#f2e753', '#e6e9ed', '#f2e753', 'btn-warning', 'disable', NULL, '2022-07-26 21:42:28'),
+(5, 'Kramat', '#05923d', '#e6e9ed', '#155632', 'btn-success', 'active', NULL, '2022-07-26 21:42:28');
 
 -- --------------------------------------------------------
 
@@ -591,7 +587,7 @@ CREATE TABLE `siswas` (
 
 INSERT INTO `siswas` (`id`, `user_id`, `nisn`, `nis`, `jurusan_id`, `rayon_id`, `jk`, `masuk`, `lulus`, `alamat`, `telp`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 2, '19812101', 11706001, '4', '25', 'Perempuan', 2013, 2016, 'Jr. Ciwastra No. 669', '0997 1919 367', '3', NULL, NULL, NULL),
-(2, 3, '19812102', 11706002, '7', '10', 'Perempuan', 2015, 2018, 'Ds. Gedebage Selatan No. 522', '0887 6771 1742', '3', NULL, NULL, NULL),
+(2, 3, '19812102', 11706002, '7', '10', 'Perempuan', 2015, 2018, 'Ds. Gedebage Selatan No. 522', '0887 6771 1742', '4', NULL, '2022-07-27 11:12:27', NULL),
 (3, 4, '19812103', 11706003, '7', '15', 'Laki-laki', 2014, 2017, 'Ki. Ters. Pasir Koja No. 245', '0481 4941 552', '2', NULL, NULL, NULL),
 (4, 5, '19812104', 11706004, '5', '18', 'Perempuan', 2017, 2020, 'Gg. Baranang Siang No. 444', '(+62) 653 0363 7904', '1', NULL, NULL, NULL),
 (5, 6, '19812105', 11706005, '2', '21', 'Laki-laki', 2014, 2017, 'Ds. Bakit  No. 392', '0369 2084 986', '1', NULL, NULL, NULL),
@@ -939,7 +935,8 @@ INSERT INTO `siswas` (`id`, `user_id`, `nisn`, `nis`, `jurusan_id`, `rayon_id`, 
 (347, 348, '19812447', 11706347, '4', '18', 'Laki-laki', 2017, 2020, 'Dk. S. Parman No. 859', '0727 7651 0345', '3', NULL, NULL, NULL),
 (348, 349, '19812448', 11706348, '2', '15', 'Laki-laki', 2015, 2018, 'Jln. Jambu No. 189', '(+62) 488 9599 941', '4', NULL, NULL, NULL),
 (349, 350, '19812449', 11706349, '5', '6', 'Laki-laki', 2017, 2020, 'Jr. Yogyakarta No. 605', '(+62) 531 0309 254', '4', NULL, NULL, NULL),
-(350, 351, '19812450', 11706350, '4', '20', 'Laki-laki', 2015, 2018, 'Kpg. Sutarjo No. 79', '(+62) 24 4683 6960', '3', NULL, NULL, NULL);
+(350, 351, '19812450', 11706350, '4', '20', 'Laki-laki', 2015, 2018, 'Kpg. Sutarjo No. 79', '(+62) 24 4683 6960', '3', NULL, NULL, NULL),
+(353, 352, '18102122', 18102122, '2', '16', 'Perempuan', 2015, 2018, 'Jalan Sudagaran 1 RT 4 RW 2 Purwokerto Kulon Banyumas Jawa Tengah Kode Pos 53141', '085719241908', '4', '2022-07-26 07:09:05', '2022-07-26 07:10:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -1337,7 +1334,9 @@ INSERT INTO `status_details` (`id`, `nis`, `status_id`, `jabatan`, `id_instansi`
 (347, 11706347, 3, 'Matematika Terapan', 83, 2000000, 'Sarjana', '2020-05-08 18:23:59', '2020-05-08 18:23:59', NULL),
 (348, 11706348, 2, 'Ilmu Komputer', 78, 2000000, 'Sarjana', '2020-05-08 18:23:59', '2020-05-08 18:23:59', NULL),
 (349, 11706349, 3, 'IT Security', 59, 30000000, '3', '2020-05-08 18:23:59', '2020-05-08 18:23:59', NULL),
-(350, 11706350, 3, 'Pegawai Negri', 59, 5000000, '3', '2020-05-08 18:23:59', '2020-05-08 18:23:59', NULL);
+(350, 11706350, 3, 'Pegawai Negri', 59, 5000000, '3', '2020-05-08 18:23:59', '2020-05-08 18:23:59', NULL),
+(351, 18102122, 4, NULL, NULL, NULL, NULL, '2022-07-26 07:09:05', '2022-07-26 07:09:05', NULL),
+(352, 11706002, 4, NULL, 1, NULL, NULL, '2022-07-27 11:12:24', '2022-07-27 11:12:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -1364,9 +1363,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `name`, `username`, `email_verified_at`, `password`, `role`, `foto`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'adminbkk@gmail.com', 'admin', 'admin', '2020-05-08 18:23:02', '$2y$10$gyhTCOJA2W6QBgy8KG8cAu2yz1mTGhf2terVyr7jvCOYQmghU9Wlm', 'admin', 'admin.jpg', NULL, NULL, NULL),
-(2, 'violet.wibowo@kuswandari.ac.id', 'Puji Rahimah', '11706001', '2020-05-09 01:23:02', '$2y$10$YAd7H6X.cKzKe9qwwR8oYum6iQbX1NFBhNV98ZMSYVxmn8qOjxwmC', 'alumni', 'default.png', NULL, NULL, NULL),
-(3, 'galur40@gmail.co.id', 'Jamalia Yani Laksita', '11706002', '2020-05-09 01:23:02', '$2y$10$kcqCpKQ0lmGQ4jeGni/Nhe6NWl.v0CK.IReukE1L78LXZrRnck9Cu', 'alumni', 'default.png', NULL, NULL, NULL),
+(1, 'adminbkk@gmail.com', 'admin', 'admin', '2020-05-08 18:23:02', '$2y$10$gyhTCOJA2W6QBgy8KG8cAu2yz1mTGhf2terVyr7jvCOYQmghU9Wlm', 'admin', '1658042757.jpg', NULL, NULL, '2022-07-17 07:25:57'),
+(2, 'violet.wibowo@kuswandari.ac.id', 'Puji Rahimah', '11706001', '2020-05-09 01:23:02', '$2y$10$YAd7H6X.cKzKe9qwwR8oYum6iQbX1NFBhNV98ZMSYVxmn8qOjxwmC', 'alumni', '1658837246.jpg', NULL, NULL, '2022-07-26 12:07:26'),
+(3, 'galur40@gmail.co.id', 'Jamalia Yani Laksita', '11706002', '2020-05-09 01:23:02', '$2y$10$kcqCpKQ0lmGQ4jeGni/Nhe6NWl.v0CK.IReukE1L78LXZrRnck9Cu', 'alumni', 'default.png', NULL, NULL, '2022-07-27 11:12:26'),
 (4, 'halima.mandasari@siregar.desa.id', 'Diah Ghaliyati Hasanah', '11706003', '2020-05-09 01:23:02', '$2y$10$Qpr8NerK5zfsatB6.DTej.NGqVuasQPlWQTjJrmU1FGv6Juz.UMFy', 'alumni', 'default.png', NULL, NULL, NULL),
 (5, 'lprakasa@pratama.ac.id', 'Hari Marbun', '11706004', '2020-05-09 01:23:02', '$2y$10$e5wE4i9wd3gaRILwwNi1reTJoswNPxSaRdELObEK54y/yu29SKU32', 'alumni', 'default.png', NULL, NULL, NULL),
 (6, 'caturangga.hutagalung@nababan.co.id', 'Jamil Hakim', '11706005', '2020-05-09 01:23:02', '$2y$10$bspXsMkI6bDe8ip.34iFI.QkaD5nhsJ6jcWV6aQIWRSUDLnu4gwti', 'alumni', 'default.png', NULL, NULL, NULL),
@@ -1715,7 +1714,17 @@ INSERT INTO `users` (`id`, `email`, `name`, `username`, `email_verified_at`, `pa
 (348, 'purwa68@yahoo.co.id', 'Vivi Hariyah M.Farm', '11706347', '2020-05-09 01:23:42', '$2y$10$2zkCcOBqdTYUZ79y13.3k.sraDuGE0OA.9DJiCb6btmJgJKCsLVZS', 'alumni', 'default.png', NULL, NULL, NULL),
 (349, 'onasyidah@sihombing.sch.id', 'Laswi Siregar M.M.', '11706348', '2020-05-09 01:23:42', '$2y$10$lkSBq95UohDCiEDfcK8Dsu136sbNzTn7aX2bYxgS3GrPeRIVXE0EK', 'alumni', 'default.png', NULL, NULL, NULL),
 (350, 'cengkir45@yahoo.com', 'Ifa Lestari', '11706349', '2020-05-09 01:23:42', '$2y$10$THScVAjS5FEdVffv1dab8ulO0efhPAHiqp994ehtQgtRW9jW2RAmK', 'alumni', 'default.png', NULL, NULL, NULL),
-(351, 'mnurdiyanti@yahoo.com', 'Ulva Ana Prastuti S.Pd', '11706350', '2020-05-09 01:23:42', '$2y$10$om9/ywvo5TuFHGmmS3xm3O0oLfTWiMg8Q2LV1SMkKcMG3DP4cI1Ty', 'alumni', 'default.png', NULL, NULL, NULL);
+(351, 'mnurdiyanti@yahoo.com', 'Ulva Ana Prastuti S.Pd', '11706350', '2020-05-09 01:23:42', '$2y$10$om9/ywvo5TuFHGmmS3xm3O0oLfTWiMg8Q2LV1SMkKcMG3DP4cI1Ty', 'alumni', 'default.png', NULL, NULL, NULL),
+(352, '18102122@ittelkom-pwt.ac.id', 'Fitria Aishwara Damaiyanti', '18102122', '2022-07-26 07:09:05', '$2y$10$yi5zbr8dFsD.8hSacAwJ8uCeiVHdCBxJRLAi9h1aEwcRoZd4RPimy', 'alumni', 'default.png', NULL, '2022-07-26 07:09:05', '2022-07-26 07:10:15');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `datalamaran`
+--
+DROP TABLE IF EXISTS `datalamaran`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datalamaran`  AS SELECT `berkas`.`id` AS `id`, `berkas`.`user_id` AS `user_id`, `datasiswa`.`name` AS `name`, `datasiswa`.`email` AS `email`, `datasiswa`.`telp` AS `telp`, `berkas`.`lowongan_id` AS `lowongan_id`, `datalowongan`.`judul` AS `judul`, `datalowongan`.`nama` AS `nama`, `berkas`.`dokumen` AS `dokumen`, `berkas`.`status` AS `status`, `berkas`.`created_at` AS `created_at` FROM ((`berkas` join `datalowongan` on(`datalowongan`.`id` = `berkas`.`lowongan_id`)) join `datasiswa` on(`datasiswa`.`user_id` = `berkas`.`user_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1724,7 +1733,7 @@ INSERT INTO `users` (`id`, `email`, `name`, `username`, `email_verified_at`, `pa
 --
 DROP TABLE IF EXISTS `datalowongan`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datalowongan`  AS SELECT `info_lowongans`.`id` AS `id`, `instansis`.`nama` AS `nama`, `info_lowongans`.`judul` AS `judul`, `info_lowongans`.`isi` AS `isi`, `info_lowongans`.`foto` AS `foto`, `info_lowongans`.`status` AS `status`, `info_lowongans`.`expired` AS `expired`, `info_lowongans`.`updated_at` AS `updated_at`, `info_lowongans`.`created_at` AS `created_at` FROM (`info_lowongans` join `instansis` on(`instansis`.`id` = `info_lowongans`.`instansi_id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `datalowongan`  AS SELECT `info_lowongans`.`id` AS `id`, `info_lowongans`.`instansi_id` AS `instansi_id`, `instansis`.`nama` AS `nama`, `info_lowongans`.`judul` AS `judul`, `info_lowongans`.`isi` AS `isi`, `info_lowongans`.`foto` AS `foto`, `info_lowongans`.`status` AS `status`, `info_lowongans`.`expired` AS `expired`, `info_lowongans`.`updated_at` AS `updated_at`, `info_lowongans`.`created_at` AS `created_at` FROM (`info_lowongans` join `instansis` on(`instansis`.`id` = `info_lowongans`.`instansi_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1772,14 +1781,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 ALTER TABLE `berkas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `siswa_id` (`siswa_id`),
   ADD KEY `lowongan_id` (`lowongan_id`);
-
---
--- Indexes for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `info_lowongans`
@@ -1809,12 +1811,6 @@ ALTER TABLE `jurusans`
   ADD UNIQUE KEY `jurusans_jurusan_unique` (`jurusan`);
 
 --
--- Indexes for table `kota`
---
-ALTER TABLE `kota`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1842,12 +1838,6 @@ ALTER TABLE `portofolios`
 -- Indexes for table `presets`
 --
 ALTER TABLE `presets`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1895,19 +1885,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `berkas`
 --
 ALTER TABLE `berkas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `info_lowongans`
 --
 ALTER TABLE `info_lowongans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `info_sekolahs`
@@ -1928,16 +1912,10 @@ ALTER TABLE `jurusans`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `kota`
---
-ALTER TABLE `kota`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `pesans`
@@ -1955,19 +1933,13 @@ ALTER TABLE `pic_configs`
 -- AUTO_INCREMENT for table `portofolios`
 --
 ALTER TABLE `portofolios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `presets`
 --
 ALTER TABLE `presets`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rayons`
@@ -1979,7 +1951,7 @@ ALTER TABLE `rayons`
 -- AUTO_INCREMENT for table `siswas`
 --
 ALTER TABLE `siswas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=353;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=354;
 
 --
 -- AUTO_INCREMENT for table `statuses`
@@ -1991,13 +1963,13 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `status_details`
 --
 ALTER TABLE `status_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=353;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=353;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

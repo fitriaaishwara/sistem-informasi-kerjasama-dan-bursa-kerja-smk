@@ -89,7 +89,7 @@
             <div class="card border-danger mb-3">
                 <div class="card-header bg-transparent border-danger">Data Non Akademik (kerja,wirausaha,kuliah)</div>
                 <div class="card-body text-danger">
-                    <h3 class="card-title">Pengangguran</h3>
+                    <h3 class="card-title">Belum Bekerja</h3>
                 <p class="card-text">Silahkan Update data anda jika status anda telah berubah</p>
                 </div>
                 <div class="card-footer bg-transparent border-danger">Footer</div>
