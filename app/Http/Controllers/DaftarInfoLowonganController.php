@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use PDF;
 use File;
+<<<<<<< HEAD
 use Response;
+=======
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
 use Carbon;
 use App\User;
 use App\Preset;
@@ -55,14 +58,32 @@ class DaftarInfoLowonganController extends Controller
 
     // Loker detail
     public function detaillowongan($id)
+<<<<<<< HEAD
     {
 
         $preset = preset::where('status','active')->first();
         $lowongans = datalowongan::where('id',$id)->get();
 
         return view('user.detailLowongan',compact('preset','lowongans'));
+=======
+    {   
+        
+        $preset = preset::where('status','active')->first();
+        $lowongans = datalowongan::where('id',$id)->get();
+
+        return view('user.detailLowongan',compact('preset','lowongans'));
     }
 
+    public function lamaransaya()
+    {   
+        
+        $preset = preset::where('status','active')->first();
+        return view('user.lamaransaya',compact('preset'));
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
+    }
+    
+
+<<<<<<< HEAD
     public function lamaransaya()
     {
 
@@ -78,6 +99,15 @@ class DaftarInfoLowonganController extends Controller
         return view('user.inputLamaran',compact('preset','lowongan'));
     }
 
+=======
+    public function create($id)
+    {
+        $preset = preset::where('status','active')->first();
+        $lowongan = datalowongan::where('id',$id)->get();
+        return view('user.inputlamaran',compact('preset','lowongan'));
+    }
+
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
     public function store($id, Request $request)
     {
         $lowongan = datalowongan::find($id);
@@ -108,9 +138,14 @@ class DaftarInfoLowonganController extends Controller
     public function download($id, request $request){
 
         $file = Berkas::findOrFail($id);
+<<<<<<< HEAD
         // $path = public_path(). '/doc' . $file->dokumen;
         $path = public_path('/doc'. $file->dokumen. '.pdf');
         return Response::download($path);
+=======
+        $path = public_path(). '/doc' . $file->dokumen;
+        return Response::download($path, '.pdf');
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
     }
 
 }

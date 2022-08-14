@@ -65,6 +65,10 @@
                   <td></td>
                   <td></td>
                   <td></td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
                 </tbody>
               </table>
 
@@ -88,10 +92,17 @@
     ajax: "json/lamaransaya",
     "order": [[ 1, 'asc' ]],
     columns: [
+<<<<<<< HEAD
     { "data": null,"sortable": false,
     render: function (data, type, row, meta) {
       return meta.row + meta.settings._iDisplayStart + 1;
     }
+=======
+    { "data": null,"sortable": false, 
+    render: function (data, type, row, meta) {
+      return meta.row + meta.settings._iDisplayStart + 1;
+    }  
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
   },
   {data: 'judul'},
   {data: "nama",
@@ -101,7 +112,11 @@
 },
   {data: "dokumen",
   render: function (id) {
+<<<<<<< HEAD
     return '<a href="doc/'+id+'">'+id+'</a>';
+=======
+    return '<a href="dok/dokumen/'+id+'">'+id+'</a>';
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
   },
 },
   {data: 'created_at'},

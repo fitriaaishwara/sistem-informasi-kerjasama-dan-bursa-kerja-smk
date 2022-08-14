@@ -39,7 +39,11 @@ class StatusController extends Controller
                     break;
 
                 case 2:
+<<<<<<< HEAD
                     $formNon = ['Nama Universitas','Jurusan','Tingkatan','Pendapatan Bulanan','Alamat'];
+=======
+                    $formNon = ['Nama Universitas','Jurusan','Tingkatan','-','Alamat'];
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
                     break;
                 case 3:
                     $formNon = ['Nama Usaha','Jenis Usaha','Lama Berdiri','Pendapatan Bulanan','Alamat Usaha'];

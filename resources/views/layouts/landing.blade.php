@@ -63,6 +63,31 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+          
+      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+          
+          <div class="mr-auto">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                <li class="active">
+                  <a href="/" class="nav-link text-left">Beranda</a>
+                </li>
+                <li>
+                  <a href="{{url('/form-full-lowongan')}}" class="nav-link text-left">Informasi Lowongan Kerja</a>
+                </li>
+                <li>
+                  <a href="{{url('/form-full-sekolah')}}" class="nav-link text-left">Informasi Sekolah</a>
+                </li>
+                <li>
+                    <a href="#pesan" class="nav-link text-left">Pesan</a>
+                </li>
+            </nav>
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
 
       <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
         <div class="container">

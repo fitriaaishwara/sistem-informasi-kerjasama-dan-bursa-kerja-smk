@@ -35,7 +35,11 @@
                                                     <p>{{$dataL->expired}}</p>
                                                 </div>
                                                  <div class="col-xl-12 mb-4">
+<<<<<<< HEAD
                                                     <a href="/inputLamaran;{{$dataL->id}}"><div class="btn {{$preset->buttonClass}}">Lamar</div></a>
+=======
+                                                    <a href="/inputlamaran/{{$dataL->id}}"><div class="btn {{$preset->buttonClass}}">Lamar</div></a>
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
                                                 </div>
                                         </div>
                                     </div>

@@ -125,8 +125,19 @@ Route::delete('infolowongan/delete/{id}','InfoLowonganController@destroy')->midd
 // daftarinfoLowongan
 Route::get('daftarinfolowongan','DaftarInfoLowonganController@index')->middleware('auth');
 
+<<<<<<< HEAD
 
 Route::post('/inputlamaran/store/{id}','DaftarInfoLowonganController@store')->middleware('auth');
+=======
+// data lamaran (alumni)
+
+
+// daftarinfoLowongan
+Route::get('daftarinfolowongan','DaftarInfoLowonganController@index');
+Route::get('/detaillowongan;{id}','DaftarInfoLowonganController@detaillowongan');
+Route::get('/inputlamaran/{id}','DaftarInfoLowonganController@create');
+Route::post('/inputlamaran/store/{id}','DaftarInfoLowonganController@store');
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
 
 
 // daftarInstansi
@@ -173,5 +184,20 @@ Route::delete('datalamaran/delete/{id}','DaftarInfoLowonganController@destroy')-
 
 Route::get('/doc/{id}','DaftarInfoLowonganController@download')->name('download')->middleware('auth');
 
+<<<<<<< HEAD
 Route::get('/detaillowongan;{id}','DaftarInfoLowonganController@detaillowongan')->middleware('auth');
 Route::get('/inputLamaran;{id}','DaftarInfoLowonganController@create')->middleware('auth');
+=======
+
+Route::get('/lamaransaya','DaftarInfoLowonganController@lamaransaya');
+Route::get('/json/lamaransaya','DaftarInfoLowonganController@json');
+
+Route::get('/datalamaran','DataLamaranController@index');
+Route::get('/json/datalamaran','DataLamaranController@json');
+Route::get('/datalamaran/detail/{id}','DataLamaranController@detail');
+Route::post('/datalamaran/active/{id}','DaftarInfoLowonganController@active');
+Route::post('/datalamaran/deactive/{id}','DaftarInfoLowonganController@deactive');
+Route::delete('datalamaran/delete/{id}','DaftarInfoLowonganController@destroy');
+
+Route::get('/dok/download/{id}','DaftarInfoLowonganController@download')->name('download');
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb

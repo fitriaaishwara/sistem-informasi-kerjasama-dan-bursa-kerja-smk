@@ -172,10 +172,19 @@
   },
 },
   {data: "dokumen",
+<<<<<<< HEAD
   render: function (id) {
     return '<a href="doc/'+id+'">'+id+'</a>';
   },
 },
+=======
+    "searchable": false,
+    "sortable": false,
+    render: function (id) {
+      return '<img src="/doc'+id+'" alt="'+id+'" height="50" width="50">';
+    },
+  },
+>>>>>>> c5fb025c1af037852778008bbda1c310a2adf6fb
   {data: 'status'},
   {data: "id",
   "searchable": false,
