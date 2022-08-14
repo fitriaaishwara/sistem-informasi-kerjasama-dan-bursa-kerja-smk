@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Siswa;
-use App\datastatus;
+use App\dataStatus;
 use App\Jurusan;
 use App\Status;
 use App\Preset;
@@ -32,7 +32,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        
     }
 
     /**
@@ -76,8 +76,8 @@ class HomeController extends Controller
         $status = Status::all();
         $company = Instansi::orderby('nama','asc')->where('nama','!=',null)->get();
         $rayon = Rayon::orderby('rayon','asc')->get();
-        if(auth::user()->role != 'admin'){
-            switch (auth::user()->data->status_id) {
+        if(Auth::user()->role != 'admin'){
+            switch (Auth::user()->data->status_id) {
                 case 1:
                     $formNon = ['Nama Instansi','Divisi','Durasi Kontrak Kerja','Pendapatan Bulanan','Alamat Instansi'];
                     break;
@@ -97,14 +97,14 @@ class HomeController extends Controller
             $formNon = 'admin';
         }
 
-        $preset = preset::where('status','active')->first();
+        $preset = Preset::where('status','active')->first();
         // end chart jejak alumni
         return view('dashboard',compact('jejakAlumni','preset','company','formNon','rayon','jejakJurusan','jurusan','siswa','kerja','kuliah','wirausaha','belumInput','status'));
     }
 
     public function updateProfile(request $request){
-        $user = User::where('id',auth::user()->id);
-        $siswa = siswa::where('user_id',auth::user()->id);
+        $user = User::where('id',Auth::user()->id);
+        $siswa = Siswa::where('user_id',Auth::user()->id);
         if($request->status != $siswa->first()->status_id){
         statusDetail::create([
             'nis' => auth::user()->data->nis,
@@ -128,7 +128,7 @@ class HomeController extends Controller
     }
 
     public function updateAkademik(request $request){
-        $siswa = siswa::where('user_id',auth::user()->id);
+        $siswa = Siswa::where('user_id',Auth::user()->id);
         $siswa->update([
             'nisn' => $request->nisn,
             'nis' => $request->nis,
@@ -141,12 +141,12 @@ class HomeController extends Controller
     }
 
     public function profiles(){
-        $preset = preset::where('status','active')->first();
+        $preset = Preset::where('status','active')->first();
         return view('user.password',compact('preset'));
     }
 
     public function editProfiles(request $request){
-        $user = user::where('id',auth::user()->id);
+    $user = User::where('id',Auth::user()->id);
     if($request->has('foto')){
         $request->validate([
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -158,11 +158,11 @@ class HomeController extends Controller
         ]);
     }else{
          // custom validator
-         Validator::extend('password', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('password', function ($attribute, $value, $parameters, $validator) {
             return Hash::check($value, \Auth::user()->password);
         });
          // message for custom validation
-         $messages = [
+        $messages = [
             'password' => 'Invalid current password.',
         ];
          // validate form
@@ -179,30 +179,28 @@ class HomeController extends Controller
             ], $messages);
             $password = Hash::make($request->current_password);
         }
-         
-        
+
         if ($validator->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validator->errors());
         }
-       
-        $imageName =  auth::user()->foto;
-         if($request->username != auth::user()->name){
-             $user->update([
-                 'username' => $request->username,
-                 'password' => $password,
-                 'foto' => $imageName,
-             ]);
+
+        $imageName =  Auth::user()->foto;
+        if($request->username != Auth::user()->name){
+            $user->update([
+                'username' => $request->username,
+                'password' => $password,
+                'foto' => $imageName,
+            ]);
         }
-     
     }
-  
-       return redirect()->back()->with('success',['Data Berhasil Diupdate']);
+
+    return redirect()->back()->with('success',['Data Berhasil Diupdate']);
     }
 
     public function editDetail(request $request){
-        $statusDetail = statusDetail::where('nis',auth::user()->data->nis);
+        $statusDetail = statusDetail::where('nis',Auth::user()->data->nis);
         $latest = $statusDetail->where('id',$statusDetail->max('id'));
         if($request->nama == $latest->first()->id_instansi){
         $latest->update([

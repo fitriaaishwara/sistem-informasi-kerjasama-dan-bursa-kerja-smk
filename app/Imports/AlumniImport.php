@@ -32,12 +32,12 @@ class AlumniImport implements ToCollection,withstartrow
             ]);
 
             $siswa = Siswa::UpdateOrCreate(['user_id'=> $user->id],[
-                'nisn'=>$row[0],
-                'user_id'=>$user->id,
-                'nis'=>$row[1],
+                'nisn'=> $row[0],
+                'user_id'=> $user->id,
+                'nis'=> $row[1],
                 'jk' => $row[3],
-                'jurusan_id' => $jurusan->id,
-                'rayon_id' => $rayon->id,
+                'jurusan_id' => $row[4],
+                'rayon_id' => $row[5],
                 'masuk' => $row[6],
                 'lulus' => $row[7],
                 'status_id'=> '4',

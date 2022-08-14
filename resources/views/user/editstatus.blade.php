@@ -145,7 +145,7 @@
                       <div class="col-md-12">
                           <div class="form-group">
                             <label for="">NIS</label>
-                             <input disabled placeholder="NIS" name="nis" class="form-control" value="{{auth::user()->data->nis}}">
+                            <input disabled placeholder="NIS" name="nis" class="form-control" value="{{auth::user()->data->nis}}">
                           </div>
                       </div>
                       <div class="col-md-12">

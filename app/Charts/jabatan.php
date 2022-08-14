@@ -4,6 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
+
 class jabatan extends Chart
 {
     /**

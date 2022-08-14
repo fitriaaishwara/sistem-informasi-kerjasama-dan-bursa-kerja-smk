@@ -9,7 +9,7 @@ use App\Rayon;
 use App\Instansi;
 use App\statusDetail;
 use App\Jurusan;
-use App\preset;
+use App\Preset;
 use Illuminate\Support\Facades\Auth;
 class StatusController extends Controller
 {
@@ -30,16 +30,16 @@ class StatusController extends Controller
         $status = Status::all();
         $company = Instansi::orderby('nama','asc')->where('nama','!=',null)->get();
         $rayon = Rayon::orderby('rayon','asc')->get();
-        $preset = preset::where('status','active')->first();
+        $preset = Preset::where('status','active')->first();
         // end chart jejak alumni
-        if(auth::user()->role != 'admin'){
-            switch (auth::user()->data->status_id) {
+        if(Auth::user()->role != 'admin'){
+            switch (Auth::user()->data->status_id) {
                 case 1:
                     $formNon = ['Nama Instansi','Divisi','Durasi Kontrak Kerja','Pendapatan Bulanan','Alamat Instansi'];
                     break;
 
                 case 2:
-                    $formNon = ['Nama Universitas','Jurusan','Tingkatan','-','Alamat'];
+                    $formNon = ['Nama Universitas','Jurusan','Tingkatan','Pendapatan Bulanan','Alamat'];
                     break;
                 case 3:
                     $formNon = ['Nama Usaha','Jenis Usaha','Lama Berdiri','Pendapatan Bulanan','Alamat Usaha'];
@@ -118,7 +118,7 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        statusDetails::find($id)->delete();
+        statusDetail::find($id)->delete();
         return response()->json(['success'=>'Product deleted successfully.']);
     }
 }

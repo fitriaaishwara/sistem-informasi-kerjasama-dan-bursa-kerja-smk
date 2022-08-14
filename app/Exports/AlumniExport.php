@@ -25,17 +25,17 @@ class AlumniExport implements FromView,ShouldAutoSize,WithTitle
 
     public function view(): View
     {
-         return view('report.alumni', [
+        return view('report.alumni', [
             'siswas' => datasiswa::orderby('nis','asc')->where('lulus',$this->angkatan)->get(),
             'jurusan' => Jurusan::all(),
             'status' => datastatus::all()
-         ]);
-     }
+        ]);
+    }
 
-     public function title(): string
-     {
-         return 'Angkatan ' . $this->angkatan;
-     }
+    public function title(): string
+    {
+        return 'Angkatan ' . $this->angkatan;
+    }
 }
 
 // <?php

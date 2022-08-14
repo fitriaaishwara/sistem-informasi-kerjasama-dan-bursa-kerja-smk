@@ -25,68 +25,68 @@ Route::get('/input', function () {
 });
 
 //report
-Route::get('/laporan','LaporanController@index')->name('dataAlumni');
-Route::get('/laporan;','LaporanController@filtered')->name('laporan.filter');
-Route::get('siswa/export/','LaporanController@export')->name('export.siswa');
-Route::post('import', 'LaporanController@import')->name('import.siswa');
+Route::get('/laporan','LaporanController@index')->name('dataAlumni')->middleware('auth');
+Route::get('/laporan;','LaporanController@filtered')->name('laporan.filter')->middleware('auth');
+Route::get('siswa/export/','LaporanController@export')->name('export.siswa')->middleware('auth');
+Route::post('import', 'LaporanController@import')->name('import.siswa')->middleware('auth');
 
 
 //alumni
-Route::resource('/inputalumni','SiswaController');
-Route::get('/json/alumni','SiswaController@json');
-Route::get('/alumni/detail/{id}','SiswaController@detail');
-Route::delete('inputalumni/delete/{id}','SiswaController@destroy');
+Route::resource('/inputalumni','SiswaController')->middleware('auth');
+Route::get('/json/alumni','SiswaController@json')->middleware('auth');
+Route::get('/alumni/detail/{id}','SiswaController@detail')->middleware('auth');
+Route::delete('inputalumni/delete/{id}','SiswaController@destroy')->middleware('auth');
 
 //jurusan
-Route::resource('/inputjurusan','JurusanController');
-Route::get('/json/jurusan','JurusanController@json');
-Route::delete('inputjurusan/delete/{id}','JurusanController@destroy');
+Route::resource('/inputjurusan','JurusanController')->middleware('auth');
+Route::get('/json/jurusan','JurusanController@json')->middleware('auth');
+Route::delete('inputjurusan/delete/{id}','JurusanController@destroy')->middleware('auth');
 
 //status
-Route::resource('/riwayatStatus','StatusDetailController');
-Route::get('/json/statusDetail','StatusDetailController@json');
-Route::delete('riwayatStatus/delete/{id}','StatusDetailController@destroy');
+Route::resource('/riwayatStatus','StatusDetailController')->middleware('auth');
+Route::get('/json/statusDetail','StatusDetailController@json')->middleware('auth');
+Route::delete('riwayatStatus/delete/{id}','StatusDetailController@destroy')->middleware('auth');
 
 //recycle bin
-Route::get('/trash','SiswaController@trash');
-Route::get('/json/alumni/trash','SiswaController@jsontrash');
-Route::get('/alumni/restore/{id}','SiswaController@restore');
-Route::get('/alumni/restore_all','SiswaController@restore_all');
-Route::delete('/alumni/delete/{id}','SiswaController@destroy_permanent');
+Route::get('/trash','SiswaController@trash')->middleware('auth');
+Route::get('/json/alumni/trash','SiswaController@jsontrash')->middleware('auth');
+Route::get('/alumni/restore/{id}','SiswaController@restore')->middleware('auth');
+Route::get('/alumni/restore_all','SiswaController@restore_all')->middleware('auth');
+Route::delete('/alumni/delete/{id}','SiswaController@destroy_permanent')->middleware('auth');
 
 //rayon
-Route::resource('/inputrayon','RayonController');
-Route::get('/json/rayon','RayonController@json');
-Route::delete('inputrayon/delete/{id}','RayonController@destroy');
+Route::resource('/inputrayon','RayonController')->middleware('auth');
+Route::get('/json/rayon','RayonController@json')->middleware('auth');
+Route::delete('inputrayon/delete/{id}','RayonController@destroy')->middleware('auth');
 
 //instansi
-Route::resource('/inputinstansi','InstansiController');
-Route::get('/json/instansi','InstansiController@json');
-Route::delete('inputinstansi/delete/{id}','InstansiController@destroy');
+Route::resource('/inputinstansi','InstansiController')->middleware('auth');
+Route::get('/json/instansi','InstansiController@json')->middleware('auth');
+Route::delete('inputinstansi/delete/{id}','InstansiController@destroy')->middleware('auth');
 
 //Product
-Route::resource('ajaxproducts','ProductController');
-Route::get('/user','UserController@index');
+Route::resource('ajaxproducts','ProductController')->middleware('auth');
+Route::get('/user','UserController@index')->middleware('auth');
 
 //AlumniDashboard
-Route::post('/update/profile','HomeController@UpdateProfile')->name('profile.update');
-Route::get('/EditProfil','HomeController@profiles')->name('profiles');
-Route::post('/EditProfil','HomeController@editProfiles')->name('edit.profiles');
-route::get('datatables','HomeController@datatables');
-Route::get('status_detail/delete/{id}', 'HomeController@destroy');
+Route::post('/update/profile','HomeController@UpdateProfile')->name('profile.update')->middleware('auth');
+Route::get('/EditProfil','HomeController@profiles')->name('profiles')->middleware('auth');
+Route::post('/EditProfil','HomeController@editProfiles')->name('edit.profiles')->middleware('auth');
+route::get('datatables','HomeController@datatables')->middleware('auth');
+Route::get('status_detail/delete/{id}', 'HomeController@destroy')->middleware('auth');
 
 //editstatus
-Route::get('/editstatus','StatusController@index')->name('status.edit');
-Route::post('/EditDetail','HomeController@editDetail')->name('edit.detail');
-Route::post('/update/akademik','HomeController@UpdateAkademik')->name('akademik.update');
+Route::get('/editstatus','StatusController@index')->name('status.edit')->middleware('auth');
+Route::post('/EditDetail','HomeController@editDetail')->name('edit.detail')->middleware('auth');
+Route::post('/update/akademik','HomeController@UpdateAkademik')->name('akademik.update')->middleware('auth');
 
 //ColorPreset
-Route::get('/preset','PresetController@index')->name('preset');
-Route::post('/preset/edit','PresetController@edit')->name('presetColor.submit');
+Route::get('/preset','PresetController@index')->name('preset')->middleware('auth');
+Route::post('/preset/edit','PresetController@edit')->name('presetColor.submit')->middleware('auth');
 
 //web Config
-Route::get('/config','ConfigController@index')->name('config');
-Route::post('/config/edit','ConfigController@edit')->name('config.submit');
+Route::get('/config','ConfigController@index')->name('config')->middleware('auth');
+Route::post('/config/edit','ConfigController@edit')->name('config.submit')->middleware('auth');
 //landing page
 Route::get('/','LandingsController@index')->name('welcome');
 // Form Lowongan
@@ -97,86 +97,81 @@ Route::get('/form-single-sekolah;{id}','LandingsController@form_single_sekolah')
 Route::get('/form-full-sekolah','LandingsController@form_full_sekolah');
 
 // Input Info Sekolah
-Route::get('/infosekolah','InfoSekolahController@index');
-Route::get('/json/infosekolah','InfoSekolahController@json');
-Route::get('/inputinfosekolah','InfoSekolahController@create');
-Route::post('/inputinfosekolah/store','InfoSekolahController@store');
-Route::get('/editinfosekolah;{id}','InfoSekolahController@edit');
-Route::post('/editinfosekolah/update;{id}','InfoSekolahController@update');
+Route::get('/infosekolah','InfoSekolahController@index')->middleware('auth');
+Route::get('/json/infosekolah','InfoSekolahController@json')->middleware('auth');
+Route::get('/inputinfosekolah','InfoSekolahController@create')->middleware('auth');
+Route::post('/inputinfosekolah/store','InfoSekolahController@store')->middleware('auth');
+Route::get('/editinfosekolah;{id}','InfoSekolahController@edit')->middleware('auth');
+Route::post('/editinfosekolah/update;{id}','InfoSekolahController@update')->middleware('auth');
 
-Route::post('/infosekolah/active/{id}','InfoSekolahController@active');
-Route::post('/infosekolah/deactive/{id}','InfoSekolahController@deactive');
-Route::delete('infosekolah/delete/{id}','InfoSekolahController@destroy');
+Route::post('/infosekolah/active/{id}','InfoSekolahController@active')->middleware('auth');
+Route::post('/infosekolah/deactive/{id}','InfoSekolahController@deactive')->middleware('auth');
+Route::delete('infosekolah/delete/{id}','InfoSekolahController@destroy')->middleware('auth');
 
 // Input Info Lowongan
-Route::get('/infolowongan','InfoLowonganController@index');
-Route::get('/json/infolowongan','InfoLowonganController@json');
-Route::get('/inputinfolowongan','InfoLowonganController@create');
-Route::post('/inputinfolowongan/store','InfoLowonganController@store');
-Route::get('/editinfolowongan;{id}','InfoLowonganController@edit');
-Route::post('/editinfolowongan/update;{id}','InfoLowonganController@update');
+Route::get('/infolowongan','InfoLowonganController@index')->middleware('auth');
+Route::get('/json/infolowongan','InfoLowonganController@json')->middleware('auth');
+Route::get('/inputinfolowongan','InfoLowonganController@create')->middleware('auth');
+Route::post('/inputinfolowongan/store','InfoLowonganController@store')->middleware('auth');
+Route::get('/editinfolowongan;{id}','InfoLowonganController@edit')->middleware('auth');
+Route::post('/editinfolowongan/update;{id}','InfoLowonganController@update')->middleware('auth');
 
-Route::post('/infolowongan/active/{id}','InfoLowonganController@active');
-Route::post('/infolowongan/deactive/{id}','InfoLowonganController@deactive');
-Route::get('/infolowongan/detail/{id}','InfoLowonganController@detail');
-Route::delete('infolowongan/delete/{id}','InfoLowonganController@destroy');
-
-// data lamaran (admin)
-
-
-// data lamaran (alumni)
+Route::post('/infolowongan/active/{id}','InfoLowonganController@active')->middleware('auth');
+Route::post('/infolowongan/deactive/{id}','InfoLowonganController@deactive')->middleware('auth');
+Route::get('/infolowongan/detail/{id}','InfoLowonganController@detail')->middleware('auth');
+Route::delete('infolowongan/delete/{id}','InfoLowonganController@destroy')->middleware('auth');
 
 
 // daftarinfoLowongan
-Route::get('daftarinfolowongan','DaftarInfoLowonganController@index');
+Route::get('daftarinfolowongan','DaftarInfoLowonganController@index')->middleware('auth');
 
 
-Route::post('/inputlamaran/store/{id}','DaftarInfoLowonganController@store');
+Route::post('/inputlamaran/store/{id}','DaftarInfoLowonganController@store')->middleware('auth');
 
 
 // daftarInstansi
-Route::get('/daftarinstansi','DaftarInstansiController@index');
-Route::get('/detailinstansi;{id}','DaftarInstansiController@detailinstansi');
+Route::get('/daftarinstansi','DaftarInstansiController@index')->middleware('auth');
+Route::get('/detailinstansi;{id}','DaftarInstansiController@detailinstansi')->middleware('auth');
 
 //CV
-Route::get('/resume/{userId}','ResumeController@index');
-Route::get('/resume/download/{userId}','ResumeController@download')->name('cv.download');
+Route::get('/resume/{userId}','ResumeController@index')->middleware('auth');
+Route::get('/resume/download/{userId}','ResumeController@download')->name('cv.download')->middleware('auth');
 
 //Pesan
-Route::resource('/pesan','PesanController');
-Route::get('/json/pesan','PesanController@json');
-Route::post('/pesan/active/{id}','PesanController@active');
-Route::post('/pesan/deactive/{id}','PesanController@deactive');
-Route::get('/pesan/detail/{id}','PesanController@detail');
-Route::delete('pesan/delete/{id}','PesanController@destroy');
+Route::resource('/pesan','PesanController')->middleware('auth');
+Route::get('/json/pesan','PesanController@json')->middleware('auth');
+Route::post('/pesan/active/{id}','PesanController@active')->middleware('auth');
+Route::post('/pesan/deactive/{id}','PesanController@deactive')->middleware('auth');
+Route::get('/pesan/detail/{id}','PesanController@detail')->middleware('auth');
+Route::delete('pesan/delete/{id}','PesanController@destroy')->middleware('auth');
 
 // Input Info Sekolah
 Route::get('/portofolio','PortofolioController@index')->name('portofolio');
-Route::get('/json/portofolio','PortofolioController@json');
-Route::get('/inputportofolio','PortofolioController@create');
-Route::post('/inputportofolio/store','PortofolioController@store');
-Route::get('/editportofolio;{id}','PortofolioController@edit');
-Route::post('/editportofolio/update;{id}','PortofolioController@update');
+Route::get('/json/portofolio','PortofolioController@json')->middleware('auth');
+Route::get('/inputportofolio','PortofolioController@create')->middleware('auth');
+Route::post('/inputportofolio/store','PortofolioController@store')->middleware('auth');
+Route::get('/editportofolio;{id}','PortofolioController@edit')->middleware('auth');
+Route::post('/editportofolio/update;{id}','PortofolioController@update')->middleware('auth');
 
-Route::post('/portofolio/active/{id}','PortofolioController@active');
-Route::post('/portofolio/deactive/{id}','PortofolioController@deactive');
-Route::delete('portofolio/delete/{id}','PortofolioController@destroy');
+Route::post('/portofolio/active/{id}','PortofolioController@active')->middleware('auth');
+Route::post('/portofolio/deactive/{id}','PortofolioController@deactive')->middleware('auth');
+Route::delete('portofolio/delete/{id}','PortofolioController@destroy')->middleware('auth');
 
 // Web Config
-route::get('/piconfig','PicConfigController@index')->name('piconfig');
+route::get('/piconfig','PicConfigController@index')->name('piconfig')->middleware('auth');
 
 
-Route::get('/lamaransaya','DaftarInfoLowonganController@lamaransaya');
-Route::get('/json/lamaransaya','DaftarInfoLowonganController@json');
+Route::get('/lamaransaya','DaftarInfoLowonganController@lamaransaya')->middleware('auth');
+Route::get('/json/lamaransaya','DaftarInfoLowonganController@json')->middleware('auth');
 
-Route::get('/datalamaran','DataLamaranController@index');
-Route::get('/json/datalamaran','DataLamaranController@json');
-Route::get('/datalamaran/detail/{id}','DataLamaranController@detail');
-Route::post('/datalamaran/active/{id}','DaftarInfoLowonganController@active');
-Route::post('/datalamaran/deactive/{id}','DaftarInfoLowonganController@deactive');
-Route::delete('datalamaran/delete/{id}','DaftarInfoLowonganController@destroy');
+Route::get('/datalamaran','DataLamaranController@index')->middleware('auth');
+Route::get('/json/datalamaran','DataLamaranController@json')->middleware('auth');
+Route::get('/datalamaran/detail/{id}','DataLamaranController@detail')->middleware('auth');
+Route::post('/datalamaran/active/{id}','DaftarInfoLowonganController@active')->middleware('auth');
+Route::post('/datalamaran/deactive/{id}','DaftarInfoLowonganController@deactive')->middleware('auth');
+Route::delete('datalamaran/delete/{id}','DaftarInfoLowonganController@destroy')->middleware('auth');
 
-Route::get('/doc/{id}','DaftarInfoLowonganController@download')->name('download');
+Route::get('/doc/{id}','DaftarInfoLowonganController@download')->name('download')->middleware('auth');
 
-Route::get('/detaillowongan;{id}','DaftarInfoLowonganController@detaillowongan');
-Route::get('/inputLamaran;{id}','DaftarInfoLowonganController@create');
+Route::get('/detaillowongan;{id}','DaftarInfoLowonganController@detaillowongan')->middleware('auth');
+Route::get('/inputLamaran;{id}','DaftarInfoLowonganController@create')->middleware('auth');

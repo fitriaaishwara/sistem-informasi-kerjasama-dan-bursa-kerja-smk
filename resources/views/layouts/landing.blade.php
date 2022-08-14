@@ -61,126 +61,84 @@
                 class="icon-menu h3"></span></a>
 
           </div>
-          <div class="col-12 col-lg-6 ml-auto d-flex">
-            
-            
-
-            
-          </div>
-          <div class="col-6 d-block d-lg-none text-right">
-            
-          </div>
         </div>
       </div>
-          
+
       <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
-
-      <div class="container">
-        <div class="d-flex align-items-center">
-          
-          <div class="mr-auto">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
-                <li class="active">
-                  <a href="/" class="nav-link text-left">Beranda</a>
-                </li>
-                <li>
-                  <a href="{{url('/form-full-lowongan')}}" class="nav-link text-left">Informasi Lowongan Kerja</a>
-                </li>
-                <li>
-                  <a href="{{url('/form-full-sekolah')}}" class="nav-link text-left">Informasi Sekolah</a>
-                </li>
-                <li>
-                    <a href="#pesan" class="nav-link text-left">Pesan</a>
-                </li>
-            </nav>
-
+        <div class="container">
+          <div class="d-flex align-items-center">
+            <div class="mr-auto">
+              <nav class="site-navigation position-relative text-right" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                  <li class="active">
+                    <a href="/" class="nav-link text-left">Beranda</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/form-full-lowongan')}}" class="nav-link text-left">Informasi Lowongan Kerja</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/form-full-sekolah')}}" class="nav-link text-left">Informasi Sekolah</a>
+                  </li>
+                  <li>
+                      <a href="#pesan" class="nav-link text-left">Testimoni</a>
+                  </li>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
-      
-    </div>
-    
     </div>
   </div>
   {{-- Body --}}
   @yield('content')
   {{-- End Body --}}
- <!-- Footer -->
+
+<!-- Footer -->
 <footer class="page-footer font-small stylish-color-dark pt-4">
 
-  <!-- Footer Links -->
   <div class="container text-center text-md-left">
-
-    <!-- Grid row -->
     <div class="row">
-
-      <!-- Grid column -->
       <div class="col-md-4 mx-auto">
-
-        <!-- Content -->
         <h4 class="font-weight-bold text-uppercase ">Bursa kerja Khusus</h4>
-        <h5 class="mb-2">SMK NU 1 ISLAMIYAH KRAMAT</h5>
-        <p>adalah sebuah lembaga yang dibentuk di Sekolah Menengah Kejuruan Negeri dan Swasta, sebagai unit pelaksana yang memberikan pelayanan dan informasi lowongan kerja, pelaksana pemasaran, penyaluran dan penempatan tenaga kerja, merupakan mitra Dinas Tenaga Kerja dan Transmigrasi.</p>
-
+        <h7 class="mb-2">SMK NU 1 ISLAMIYAH KRAMAT</h7>
+        <p>Jl. Garuda No. 39 Kemantran Kec. Kramat, Kab. Tegal Jawa Tengah 52181</p>
       </div>
-      <!-- Grid column -->
+
+        <div class="col-md-2 mx-auto">
+          <h6 class="font-weight-bold text-uppercase">Fax</h6>
+          <h7 class="mb-2">(0283) 6144969</h7>
+        </div>
 
       <hr class="clearfix w-100 d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-2 mx-auto">
-
-        <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Hotline : </h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <i class="fab fa-whatsapp"></i> 087775086000
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none">
-
-      <!-- Grid column -->
       <div class="col-md-6 mx-auto">
         @guest
-        
+
         @else
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Kirim Pesan</h5>
-        
+        <h6 class="font-weight-bold text-uppercase">Kirim Testimoni</h6>
           <form id="formpesan">
-          <fieldset class="form-group">
-              <textarea class="form-control sizefootertextarea" name="pesan" id="pesan" rows="4" placeholder="Pesan"></textarea>
-          </fieldset>
-          <fieldset class="form-group text-xs-right">
-              <button type="button" id="send" class="btn btn-secondary-outline btn-lg">Send</button>
-          </fieldset>
-      </form>
-@endguest
+            <fieldset class="form-group">
+                <textarea class="form-control sizefootertextarea" name="pesan" id="pesan" rows="4" placeholder="Bagaimana SIMBKK Menurutmu?"></textarea>
+            </fieldset>
+            <fieldset class="form-group text-xs-right">
+                <button type="button" id="send" class="btn btn-secondary-outline btn-lg">Kirim</button>
+            </fieldset>
+          </form>
+        @endguest
       </div>
-      <!-- Grid column -->
     </div>
-    <!-- Grid row -->
   </div>
+
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
-   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> SMK NU 1 Islamiyah Kramat, All Rights Reserved.
   </div>
   <!-- Copyright -->
-
 </footer>
 <!-- Footer -->
 
-  
     <!-- .site-wrap -->
     <!-- loader -->
-    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
+    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#155632"/></svg></div>
     {{-- <script type="text/javascript" src="landing/js/transit.js"></script>
     <script type="text/javascript" src="landing/js/touchSwipe.js"></script>
     <script type="text/javascript" src="landing/js/simpleSlider.js"></script> --}}

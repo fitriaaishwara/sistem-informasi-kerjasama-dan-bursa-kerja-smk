@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Siswa;
 use App\Jurusan;
 use App\DataSiswa;
-use App\DataStatus;
+use App\dataStatus;
 use App\Rayon;
 use App\Status;
 use App\User;

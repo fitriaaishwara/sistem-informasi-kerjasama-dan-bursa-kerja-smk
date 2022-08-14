@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use yajra\DataTables\DataTables;
 use App\Siswa;
 use App\Jurusan;
-use App\StatusDetail;
+use App\statusDetail;
 use App\Charts\jejakAlumni;
 use App\Charts\jejakJurusan;
 use App\Charts\jabatan;
@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AlumniImport;
 use Carbon\Carbon;
 use App\Resume;
-use App\datastatus;
+use App\dataStatus;
 
 class LaporanController extends Controller
 {
@@ -83,9 +83,9 @@ class LaporanController extends Controller
         ]);
 
         // Chart Jabatan
-        $getSiswaNisForKerja = siswa::where('status_id','1')->pluck('nis');
-        $getSiswaNisForKuliah = siswa::where('status_id','2')->pluck('nis');
-        $getDataAlumniKerja = StatusDetail::whereIn('nis',$getSiswaNisForKerja)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
+        $getSiswaNisForKerja = Siswa::where('status_id','1')->pluck('nis');
+        $getSiswaNisForKuliah = Siswa::where('status_id','2')->pluck('nis');
+        $getDataAlumniKerja = statusDetail::whereIn('nis',$getSiswaNisForKerja)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
         ->groupby('jabatan')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $jabatan = new jabatan;
         $collectJumlah = collect([]);
@@ -101,7 +101,7 @@ class LaporanController extends Controller
         $jabatan->displayAxes(false);
 
         // Chart  Tempat Kerja
-        $getDataAlumniTempatKerja = datastatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kerja')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
+        $getDataAlumniTempatKerja = dataStatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kerja')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
         ->groupby('nama')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $chartKerja = new kerja;
         $collectJumlahKerja = collect([]);
@@ -121,7 +121,7 @@ class LaporanController extends Controller
         $chartKerja->displayLegend(false);
 
         // Chart  Tempat Kuliah
-        $getDataAlumniTempatKuliah = datastatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kuliah')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
+        $getDataAlumniTempatKuliah = dataStatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kuliah')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
         ->groupby('nama')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $chartKuliah = new kuliah;
         $collectJumlahKuliah = collect([]);
@@ -143,7 +143,7 @@ class LaporanController extends Controller
        
 
         // Chart Jurusan Kuliah
-        $getDataAlumniJurusanKuliah = StatusDetail::whereIn('nis',$getSiswaNisForKuliah)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
+        $getDataAlumniJurusanKuliah = statusDetail::whereIn('nis',$getSiswaNisForKuliah)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
         ->groupby('jabatan')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $jurusanKuliah = new jurusanKuliah;
         $collectJumlahMahasiswa = collect([]);
@@ -161,10 +161,10 @@ class LaporanController extends Controller
 
         //chart pendapatan
         $pendapatan = new pendapatan;
-        $RevenueA = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',10000000)->count();
-        $RevenueB = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',3000000)->count();
-        $RevenueC = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',1000000)->count();
-        $RevenueD = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','<=',500000)->count();
+        $RevenueA = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',10000000)->count();
+        $RevenueB = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',3000000)->count();
+        $RevenueC = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',1000000)->count();
+        $RevenueD = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','<=',500000)->count();
         $pendapatan->labels(['>= 10.000.000','>= 3.000.000','>= 1.000.000','<= 500.000']);
         $pendapatan->dataset('Jumlah Alumni','pie',[$RevenueA,$RevenueB,$RevenueC,$RevenueD])->options([
             'color' => ['#49ACF8','#FFC44F','#FF5CF5','#4FFF8A','#0F3CFF','#FF4B4B','#49ACF1','#FFC45F','#FF5CF9','#4FFF5A','#0F3CCF','#FF4B4E']
@@ -178,8 +178,7 @@ class LaporanController extends Controller
 
     public function filtered(Request $request)
     {
-       
-        $preset = preset::where('status','active')->first();
+        $preset = Preset::where('status','active')->first();
         $kuliah = Siswa::where('status_id','2')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->count();
         $kerja = Siswa::where('status_id','1')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->count();
         $wirausaha = Siswa::where('status_id','3')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->count();
@@ -224,9 +223,9 @@ class LaporanController extends Controller
         ]);
 
         // Chart Jabatan
-        $getSiswaNisForKerja = siswa::where('status_id','1')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->pluck('nis');
-        $getSiswaNisForKuliah = siswa::where('status_id','2')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->pluck('nis');
-        $getDataAlumniKerja = StatusDetail::whereIn('nis',$getSiswaNisForKerja)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
+        $getSiswaNisForKerja = Siswa::where('status_id','1')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->pluck('nis');
+        $getSiswaNisForKuliah = Siswa::where('status_id','2')->whereRaw("(lulus = ".$request->tahunLulus.")")->whereRaw("(jurusan_id = ".$request->jurusan.")")->pluck('nis');
+        $getDataAlumniKerja = statusDetail::whereIn('nis',$getSiswaNisForKerja)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
         ->groupby('jabatan')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $jabatan = new jabatan;
         $collectJumlah = collect([]);
@@ -242,7 +241,7 @@ class LaporanController extends Controller
         $jabatan->displayAxes(false);
 
          // Chart  Tempat Kerja
-        $getDataAlumniTempatKerja = datastatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kerja')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
+        $getDataAlumniTempatKerja = dataStatus::whereIn('nis',$getSiswaNisForKerja)->where('status','kerja')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
         ->groupby('nama')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $chartKerja = new kerja;
         $collectJumlahKerja = collect([]);
@@ -262,7 +261,7 @@ class LaporanController extends Controller
         $chartKerja->displayLegend(false);
 
         // Chart  Tempat Kuliah
-        $getDataAlumniTempatKuliah = datastatus::whereIn('nis',$getSiswaNisForKuliah)->where('status','kuliah')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
+        $getDataAlumniTempatKuliah = dataStatus::whereIn('nis',$getSiswaNisForKuliah)->where('status','kuliah')->selectRaw('COUNT(NIS) as jumlah_alumni , nama')
         ->groupby('nama')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $chartKuliah = new kuliah;
         $collectJumlahKuliah = collect([]);
@@ -283,7 +282,7 @@ class LaporanController extends Controller
         $chartKuliah->displayLegend(false);
 
         // Chart Jurusan Kuliah
-        $getDataAlumniJurusanKuliah = StatusDetail::whereIn('nis',$getSiswaNisForKuliah)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
+        $getDataAlumniJurusanKuliah = statusDetail::whereIn('nis',$getSiswaNisForKuliah)->selectRaw('COUNT(NIS) as jumlah_alumni , jabatan')
         ->groupby('jabatan')->orderby('jumlah_alumni','desc')->limit(11)->get();
         $jurusanKuliah = new jurusanKuliah;
         $collectJumlahMahasiswa = collect([]);
@@ -301,10 +300,10 @@ class LaporanController extends Controller
 
         //chart pendapatan
         $pendapatan = new pendapatan;
-        $RevenueA = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',10000000)->count();
-        $RevenueB = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',3000000)->where('pendapatan','<=',10000000)->count();
-        $RevenueC = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',1000000)->where('pendapatan','<=',3000000)->count();
-        $RevenueD = StatusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','<=',500000)->count();
+        $RevenueA = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',10000000)->count();
+        $RevenueB = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',3000000)->where('pendapatan','<=',10000000)->count();
+        $RevenueC = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','>=',1000000)->where('pendapatan','<=',3000000)->count();
+        $RevenueD = statusDetail::wherein('nis',$collectAllSiswa)->where('pendapatan','<=',500000)->count();
         $pendapatan->labels(['>= 10.000.000','>= 3.000.000','>= 1.000.000','<= 500.000']);
         $pendapatan->dataset('Jumlah Alumni','pie',[$RevenueA,$RevenueB,$RevenueC,$RevenueD])->options([
             'color' => ['#49ACF8','#FFC44F','#FF5CF5','#4FFF8A','#0F3CFF','#FF4B4B','#49ACF1','#FFC45F','#FF5CF9','#4FFF5A','#0F3CCF','#FF4B4E']

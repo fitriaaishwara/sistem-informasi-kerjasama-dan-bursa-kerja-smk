@@ -47,12 +47,11 @@
 
               <h5><label class="form-control-label col-lg-3 mt-4">Instansi</label></h5>
                 <div class="col-lg-12">
-                  @foreach ($instansi as $item)
                   <select name="instansi_id" id="instansi_id" class="form-control">
-                    <option disabled selected style="display: none"></option>
-                    <option value="{{ $d->id }}">{{ $d -> nama }}</option>
+                    <option value="{{ $d -> id }}">{{ $d->nama }}</option>
+                    @foreach ($instansi as $item)
                     <option value="{{ $item -> id }}">{{ $item -> nama }}</option>
-                  @endforeach
+                    @endforeach
                   </select>
                 </div>
 

@@ -114,8 +114,8 @@ class InfoLowonganController extends Controller
     public function edit($id)
     {
         $preset = preset::where('status','active')->first();
-        $data = InfoLowongan::where('id',$id)->get();
-        $instansi = datalowongan::where('id',$id)->get();
+        $data = datalowongan::where('id',$id)->get();
+        $instansi = Instansi::all();
         return view('admin.editInfoLowongan',compact('preset','data','instansi'));
     }
 

@@ -439,7 +439,7 @@ var table = $('#table').DataTable({
   "searchable": false,
   "sortable": false,
   render: function (id, type, full, meta) {
-    return '<div class="btn-group"><a href="javascript:void(0)" data-toggle="tooltip" id="detail" data-id="'+id+'" data-original-title="Detail" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a> <a href="javascript:void(0)" data-toggle="tooltip" id="edit"  data-id="'+id+'" data-original-title="Edit" class="btn btn-warning btn-sm"><i class="fa fa-edit" style="color:white;"></i></a>  <a href="javascript:void(0)" data-toggle="tooltip" id="delete"  data-id="'+id+'" data-original-title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></div>';
+    return '<div class="btn-group"><a href="javascript:void(0)" data-toggle="tooltip" id="detail" data-id="'+id+'" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a> <a href="javascript:void(0)" data-toggle="tooltip" id="edit"  data-id="'+id+'" data-original-title="Edit" class="btn btn-warning btn-sm"><i class="fa fa-edit" style="color:white;"></i></a>  <a href="javascript:void(0)" data-toggle="tooltip" id="delete"  data-id="'+id+'" data-original-title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></div>';
   },
 },
 ],
