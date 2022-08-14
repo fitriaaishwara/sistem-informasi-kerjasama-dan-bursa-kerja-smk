@@ -24,7 +24,7 @@
           <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
               <div class="m-portlet__head-title">
-                <h3 class="m-portlet__head-text">Upload CV</h3>
+                <h3 class="m-portlet__head-text">Upload Dokumen</h3>
               </div>
             </div>
           </div>
@@ -38,10 +38,6 @@
                 <h5><label id="isi" class="form-control-label col-lg-3 mt-4">Nama Dokumen</label></h5>
                 <div class="col-lg-12">
                   <input type="text" name="judul" required id="judul" class="form-control m-input">
-                </div>
-
-                <div class="col-lg-12 mt-2 mb-4">
-                  <img id="previewHolder" alt=" Preview" width="150px" height="150px"/>
                 </div>
 
                 <div class="col-lg-12">
