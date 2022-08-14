@@ -62,15 +62,6 @@
                                   <div class="carousel-item">
                                     <img src="image/config/login/login2.jpg" class="d-block w-100" alt="..."style="height: 100vh ; object-fit: cover">
                                   </div>
-                                  <div class="carousel-item">
-                                    <img src="image/config/login/login3.jpg" class="d-block w-100" alt="img not found"style="height: 100vh ; object-fit: cover">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="image/config/login/login4.jpg" class="d-block w-100" alt="img not found"style="height: 100vh ; object-fit: cover">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="image/config/login/login5.jpg" class="d-block w-100" alt="img not found"style="height: 100vh ; object-fit: cover">
-                                  </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

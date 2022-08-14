@@ -71,7 +71,7 @@ class SiswaController extends Controller
     {
         Siswa::onlyTrashed()->restore();
         User::where('role', 'deleted')
-          ->update(['role' => 'alumni']);
+        ->update(['role' => 'alumni']);
         return response()->json();
     }
 

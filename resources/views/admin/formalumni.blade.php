@@ -2,138 +2,110 @@
 @section('dataAlumni','m-menu__item--active')
 @section('title','SIMBKK | Manajemen Data Alumni')
 @section('content')
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<!-- END: Left Aside -->
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
-  <!-- BEGIN: Subheader -->
-  <div class="m-subheader">
-    <div class="d-flex align-items-center">
-      <div class="mr-auto">
-        <h3 class="m-subheader__title ">Data Alumni</h3>
+  <div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-subheader">
+      <div class="d-flex align-items-center">
+        <div class="mr-auto">
+          <h3 class="m-subheader__title ">Data Alumni</h3>
+        </div>
       </div>
-</div>
-</div>
-<!-- end:: Page -->
-<!-- Begin Body -->
+    </div>
 
-<!--Begin::Section-->
-<br>
-<div class="container">
- <div class="row">
-   <div class="col-xl-12 mb-4">
-    {{-- <div class="btn btn-primary" id="open-modal">Masukkan Data Alumni</div> --}}
-    <div class="btn {{$preset->buttonClass}}" id="open-modal">Masukkan Data Alumni</div>
-  </div>
+    <br>
 
-  <div class="col-xl-12">
-    <div class="m-portlet m-portlet--mobile ">
-      <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-          <div class="m-portlet__head-title">
-            <h3 class="m-portlet__head-text">
-              Data Alumni
-            </h3>
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 mb-4">
+          {{-- <div class="btn btn-primary" id="open-modal">Masukkan Data Alumni</div> --}}
+          <div class="btn {{$preset->buttonClass}}" id="open-modal">Masukkan Data Alumni</div>
         </div>
 
-        <div class="m-portlet__head-tools">
-          <ul class="m-portlet__nav">
-            <li class="m-portlet__nav-item">
-              <div
-              class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
-              m-dropdown-toggle="hover"
-              aria-expanded="true"
-              >
-              <a
-              href="#"
-              class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle"
-              >
-              <i class="la la-ellipsis-h m--font-brand"></i>
-            </a>
-            <div class="m-dropdown__wrapper">
-              <span
-              class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"
-              ></span>
-              <div class="m-dropdown__inner">
-                <div class="m-dropdown__body">
-                  <div class="m-dropdown__content">
-                    <ul class="m-nav">
-                      <li
-                      class="m-nav__section m-nav__section--first"
-                      >
-                      <span class="m-nav__section-text"
-                      >Admin</span
-                      >
-                    </li>
-                    <li class="m-nav__item">
-                    <a href="{{route('export.siswa')}}" class="m-nav__link">
-                        <i
-                        class="m-nav__link-icon la la-download"
-                        ></i>
-                        <span class="m-nav__link-text"
-                        >Export Data Alumni</span
-                        >
-                      </a>
-                    </li>
-                    <li class="m-nav__item">
-                      <a href="#" class="m-nav__link" id="import">
-                        <i
-                        class="m-nav__link-icon la la-upload"
-                        ></i>
-                        <span class="m-nav__link-text"
-                        >Import Data Alumni</span
-                        >
-                      </a>
-                    </li>
-                    <li class="m-nav__item">
-                      <a href="{{url('/trash')}}" class="m-nav__link">
-                        <i
-                        class="m-nav__link-icon la la-trash"
-                        ></i>
-                        <span class="m-nav__link-text"
-                        >Recycle Bin</span
-                        >
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+      <div class="col-xl-12">
+        <div class="m-portlet m-portlet--mobile ">
+          <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+              <div class="m-portlet__head-title">
+                <h3 class="m-portlet__head-text">
+                  Data Alumni
+                </h3>
               </div>
             </div>
+
+          <div class="m-portlet__head-tools">
+            <ul class="m-portlet__nav">
+              <li class="m-portlet__nav-item">
+                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                  <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                    <i class="la la-ellipsis-h m--font-brand"></i>
+                  </a>
+                  <div class="m-dropdown__wrapper">
+                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__body">
+                        <div class="m-dropdown__content">
+                          <ul class="m-nav">
+                            <li class="m-nav__section m-nav__section--first">
+                              <span class="m-nav__section-text">Admin</span>
+                            </li>
+                            <li class="m-nav__item">
+                              <a href="{{route('export.siswa')}}" class="m-nav__link">
+                                <i class="m-nav__link-icon la la-download"></i>
+                                <span class="m-nav__link-text">Export Data Alumni</span>
+                              </a>
+                            </li>
+                            <li class="m-nav__item">
+                              <a href="#" class="m-nav__link" id="import">
+                                <i class="m-nav__link-icon la la-upload"></i>
+                                <span class="m-nav__link-text">Import Data Alumni</span>
+                              </a>
+                            </li>
+                            <li class="m-nav__item">
+                              <a href="{{url('/trash')}}" class="m-nav__link">
+                                <i class="m-nav__link-icon la la-trash"></i>
+                                <span class="m-nav__link-text">Recycle Bin</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-      </li>
-    </ul>
+        <div class="m-portlet__body">
+          <!--begin: Datatable -->
+          <div class="table-responsive">
+            <table id="table" class="display">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>NISN</th>
+                  <th>NIS</th>
+                  <th>Nama</th>
+                  <th>Jurusan</th>
+                  <th width="60px">Rayon</th>
+                  <th>Jenis Kelamin</th>
+                  <th width="60px">Tahun</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+          <!--end: Datatable -->
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="m-portlet__body">
-  <!--begin: Datatable -->
-  <div class="table-responsive">
-  <table id="table" class="display">
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>NISN</th>
-        <th>NIS</th>
-        <th>Nama</th>
-        <th>Jurusan</th>
-        <th width="60px">Rayon</th>
-        <th>Jenis Kelamin</th>
-        <th width="60px">Tahun</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
-</div>
-  <!--end: Datatable -->
-</div>
-</div>
-</div>
-
-</div>
 </div>
 
 <!-- modaldetail -->
@@ -149,7 +121,6 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-
             <div class="col-sm-12 mb-4">
               <div class="card">
                 <div class="card-body">
@@ -274,36 +245,36 @@
   </div>
 </div>
 <!-- end -->
+
 <div id="uploadFile" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-
-        <div class="modal-body">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
         <form action="{{route('import.siswa')}}" method="post" enctype="multipart/form-data">
-            @csrf
-            <p>Dibawah Ini Adalah Format Untuk Import Excel <b>Pastikan Anda Mengikuti nya</b></p>
-            <b>Download Format <a href="{{asset('dlc/formatImport.xlsx')}}" download>Disini</a></b>
-        <img src="{{asset('image/config/format.png')}}" alt="" style="max-width:100%;max-height:100%">
-            <br>
+          @csrf
+          <p>Dibawah Ini Adalah Format Untuk Import Excel <b>Pastikan Anda Mengikuti nya</b></p>
+          <b>Download Format <a href="{{asset('dlc/formatImport.xlsx')}}" download>Disini</a></b>
+          <img src="{{asset('image/config/format.png')}}" alt="" style="max-width:100%;max-height:100%">
+          <br>
 
-            <p>Masukan File Import <b>(.xlx,.xlxs)</b></p>
-            <input type="file" name="file" class="form-control" id="">
+          <p>Masukan File Import <b>(.xlx,.xlxs)</b></p>
+          <input type="file" name="file" class="form-control" id="">
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button class="btn {{$preset->buttonClass}}">Simpan</button>
-        </form>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn {{$preset->buttonClass}}">Simpan</button>
+          </form>
+          </div>
+          </div>
+
       </div>
-
     </div>
-  </div>
-    </form>
+        </form>
   </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade " id="modal-alumni"  tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -427,13 +398,7 @@
         <button type="button" id="saveBtn" class="btn {{$preset->buttonClass}}">Save Data</button>
       </div>
     </div>
-<!-- Modal -->
-
-<!--End::Section-->
-<!--End::Section-->
-
-</div>
-</div>
+  </div>
 </div>
 
 <script type="text/javascript">

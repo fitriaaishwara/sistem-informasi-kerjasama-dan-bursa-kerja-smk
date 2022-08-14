@@ -73,7 +73,7 @@
 
                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
                   <a href="{{route('welcome')}}" class="m-brand__logo-wrapper">
-                    <img alt="" src="{{asset('image/config/logo/wk.png')}}" style="max-width:150px;height:50px;object-fit:cover "/>
+                    <img alt="" src="{{asset('image/config/logo/kramat.png')}}" style="max-width:150px;height:50px;object-fit:cover "/>
                   </a>
                 </div>
 
@@ -320,31 +320,35 @@
                   <span class="m-menu__link-text">Kelola Portofolio</span>
                 </a>
               </li>
-              <li class="m-menu__item @yield('RiwayatStatus')" aria-haspopup="true">
-                <a href="{{url('/riwayatStatus')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fas fa-history"></i>
-                  <span class="m-menu__link-text">Riwayat Pekerjaan</span>
-                </a>
-              </li>
 
               <li class="m-menu__section ">
-                <h4 class="m-menu__section-text">Informasi</h4>
+                <h4 class="m-menu__section-text">Informasi Umum</h4>
                 <i class="m-menu__section-icon flaticon-more-v2"></i>
               </li>
               <li class="m-menu__item @yield('daftarinstansi')" aria-haspopup="true">
                 <a href="{{url('/daftarinstansi')}}" class="m-menu__link m-menu__toggle">
-                  <i class="m-menu__link-icon fa fa-file"></i>
-                  <span class="m-menu__link-text">Daftar Perusahaan</span>
+                  <i class="m-menu__link-icon la la-building"></i>
+                  <span class="m-menu__link-text">Daftar Instansi</span>
                 </a>
               </li>
               <li class="m-menu__item @yield('daftarinfolowongan')" aria-haspopup="true">
-                <a href="{{url('daftarinfolowongan')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fas fa-history"></i>
+                <a href="{{url('daftarinfolowongan')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-industry"></i>
                   <span class="m-menu__link-text">Daftar Lowongan</span>
                 </a>
               </li>
-              <li class="m-menu__item @yield('portofolio')" aria-haspopup="true">
-                <a href="{{url('/portofolio')}}" class="m-menu__link m-menu__toggle">
-                  <i class="m-menu__link-icon fas fa-medal"></i>
-                  <span class="m-menu__link-text">Status Lamaran</span>
+               <li class="m-menu__section ">
+                <h4 class="m-menu__section-text">Informasi Alumni</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+              </li>
+              <li class="m-menu__item @yield('lamaransaya')" aria-haspopup="true">
+                <a href="{{url('/lamaransaya')}}" class="m-menu__link m-menu__toggle">
+                  <i class="m-menu__link-icon fas fa-briefcase"></i>
+                  <span class="m-menu__link-text">Lamaran Saya</span>
+                </a>
+              </li>
+              <li class="m-menu__item @yield('RiwayatStatus')" aria-haspopup="true">
+                <a href="{{url('/riwayatStatus')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fas fa-history"></i>
+                  <span class="m-menu__link-text">Riwayat Status</span>
                 </a>
               </li>
               @endif

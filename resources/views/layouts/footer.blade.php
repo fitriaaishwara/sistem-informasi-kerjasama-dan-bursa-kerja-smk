@@ -11,7 +11,7 @@
           class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last"
         >
           <span class="m-footer__copyright">
-            2019 &copy; Devloped by
+            2022 &copy; Devloped by
             <a class="m-link"
               >SMK NU 1 ISLAMIYAH KRAMAT</a
             >

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\InfoLowongan;
-use App\Preset;
-use App\datalowongan;
-use App\Instansi;
-use DataTables;
 use File;
 use Carbon;
+use App\Preset;
+use DataTables;
+use App\Instansi;
+use App\datalowongan;
+use App\InfoLowongan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,7 +26,7 @@ class InfoLowonganController extends Controller
     }
 
     public function index()
-    {   
+    {
         $preset = preset::where('status','active')->first();
         return view('admin.infoLowongan',compact('preset'));
     }

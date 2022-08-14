@@ -30,7 +30,7 @@
             <div class="m-portlet__body">
 
             <form method="post" action="/inputinfolowongan/store" enctype="multipart/form-data" class="form-horizontal">
-            
+
               {{ csrf_field() }}
               <div class="form-group m-form__group row">
                 <input type="hidden" name="id" id="id" class="form-control m-input">

@@ -39,10 +39,10 @@ class StatusController extends Controller
                     break;
 
                 case 2:
-                    $formNon = ['Nama Fakultas','Jurusan','Tingkatan','Pendapatan Bulanan','Alamat Fakultas'];
+                    $formNon = ['Nama Universitas','Jurusan','Tingkatan','-','Alamat'];
                     break;
                 case 3:
-                    $formNon = ['Nama Perusahaan','Jenis Perusahaan','Lama Berdiri','Pendapatan Bulanan','Alamat Perusahaan'];
+                    $formNon = ['Nama Usaha','Jenis Usaha','Lama Berdiri','Pendapatan Bulanan','Alamat Usaha'];
                     break;
                 default:
                     $formNon = ['Nama Instansi','Divisi','Durasi Kontrak Kerja','Pendapatan Bulanan','Alamat Instansi'];
